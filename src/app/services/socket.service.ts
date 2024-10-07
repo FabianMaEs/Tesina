@@ -39,7 +39,6 @@ export class SocketService {
   }
   
   joinRoom(roomId: number, callback: () => void) {
-    console.log('Joining team:', roomId);
     this.socket.emit('joinRoom', roomId);
     this.socket.once('UserJoined', (data: { roomId: number, joinedUsers: number }) => {
       console.log('Room joined:', data.roomId);
@@ -75,7 +74,6 @@ export class SocketService {
 
   joinQuiz(): void {
     if (this.joinedRoom) {
-      console.log('Joining quiz joinQuiz() method in SocketService');
       this.socket.emit('joinQuiz');
     } else {
       console.log('Cannot join quiz, not part of a team');
@@ -86,15 +84,6 @@ export class SocketService {
     console.log('Starting quiz:', roomId);
     this.socket.emit('startQuiz', roomId);
     console.log('Jugador:', this.user);
-    // Si el usuario es jugador, mostrar el quiz en el componente Quiz
-    /*if (this.user === "player") {
-      this.iniciado = true;
-      console.log('Redirigiendo a los jugadores al quiz');
-      this.router.navigate(['/quiz']);
-    }
-    else {
-      alert("Redirigiendo a los jugadores al quiz");
-    }*/
   }
 
   onQuizStarted(callback: () => void): void {
@@ -127,13 +116,13 @@ export class SocketService {
 
   onAnswerResult(callback: (data: any) => void): void {
     this.socket.on('answerResult', (data: any) => {
-      console.log('Received answerResult:', data);
+      //console.log('Received answerResult:', data);
       callback(data);
     });
   }
   
   submitAnswer(answerData: any) {
-    console.log('Submitting answer:', answerData);
+    //console.log('Submitting answer:', answerData);
     this.socket.emit('submitAnswer', answerData);
   }
 

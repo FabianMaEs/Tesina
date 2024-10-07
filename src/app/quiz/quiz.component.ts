@@ -33,7 +33,6 @@ start: boolean = false;
 
   ngOnInit(): void {
 
-    
     this.socketService.onUserCountUpdate((joinedUsers: number) => {
       this.joinedUsers = joinedUsers;
     });
@@ -46,11 +45,10 @@ start: boolean = false;
       // Pasar a la siguiente pregunta si el tiempo se acaba
       if (timeLeft === 0) {
         this.currentQuestionIndex++;
-        console.log("onQuizTimerUpdate.id:", this.currentQuestionId);        
-        this.submitAnswer(this.currentQuestionId, this.selectedAnswer, this.roomId);
+        console.log("index: " + this.currentQuestionIndex);
+        if(!this.admin) this.submitAnswer(this.currentQuestionId, this.selectedAnswer, this.roomId);
       }
     });
-
     this.socketService.onNextQuestion((questionIndex: number) => {
       this.currentQuestionIndex = questionIndex;
       this.loadCurrentQuestion();
@@ -84,7 +82,6 @@ async createRoom(): Promise<void> {
   async join(): Promise<void> {
     this.socketService.joinRoom(this.roomId, () => {
       if (this.socketService.isJoinedRoom()) {
-        console.log('Joining quiz in QuizComponent');
         this.socketService.roomId = this.roomId;
         this.socketService.joinQuiz();
         this.socketService.onQuizQuestions((questions) => {
@@ -108,7 +105,6 @@ async createRoom(): Promise<void> {
     });
     this.admin = false;
     this.ingresar = true;
-    console.log('Joining room:', this.roomId);
   }
 
   submitAnswer(questionId: string, selectedOptionIndex: number, roomId: number): void {
@@ -126,7 +122,6 @@ async createRoom(): Promise<void> {
 
   loadCurrentQuestion(): void {
     if (this.questions.length > 0 && this.currentQuestionIndex < this.questions.length) {
-      console.log('Preguntas recuperadas:', this.questions);
 
       this.currentQuestion = {
         ...this.questions[this.currentQuestionIndex],
