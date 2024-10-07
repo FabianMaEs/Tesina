@@ -1,0 +1,88 @@
+:root {
+    --w: calc(70vw / 6);
+    --h: calc(70vh / 4);
+}
+
+* {
+    transition: all 0.5s;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+    background: powderblue;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: calibri;
+}
+
+#tablero {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 6 columnas para las tarjetas */
+    grid-gap: 10px; /* Espaciado entre las tarjetas */
+    width: 70vw; /* Ajusta el ancho del tablero */
+}
+
+.area-tarjeta {
+    display: inline-block;
+    margin: 1vb;
+}
+
+.tarjeta {
+    width: 20vb;
+    height: 20vb;
+    perspective: 1000px;
+    position: relative;
+}
+
+.cara {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em; /* Tamaño del ícono */
+    box-shadow: inset 0 0 0 5px white;
+}
+
+.flipped .cara.superior {
+    transform: rotateY(180deg);
+}
+
+.flipped .cara.trasera {
+    transform: rotateY(0deg);
+}
+
+.trasera {
+    background-color: lightcyan;
+    transform: rotateY(180deg); /* Oculta la cara trasera */
+}
+
+.superior {
+    background: linear-gradient(orange, darkorange);
+}
+
+/* Ajusta las imágenes dentro de la tarjeta para que no sobresalgan */
+.cara img {
+    max-width: 90%; /* Limita el tamaño de la imagen dentro de la tarjeta */
+    max-height: 90%; /* Limita la altura también para mantener la proporción */
+    object-fit: contain; /* Ajusta la imagen para que mantenga su proporción dentro del contenedor */
+}
+
+.nuevo-juego {
+    cursor: pointer;
+    background: linear-gradient(orange, darkorange);
+    padding: 20px;
+    border-radius: 50px;
+    border: white 5px solid;
+    font-size: 130%;
+    margin-top: 20px;
+}

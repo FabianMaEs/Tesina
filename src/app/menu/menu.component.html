@@ -1,0 +1,32 @@
+<div *ngIf="!admin">
+	<div *ngIf="!ingresar">
+		<div>Crear sala:</div>
+		<div>Nombre: <input type="number" [(ngModel)]="roomId"></div>
+		<button (click)="createRoom()">Crear</button>
+		<div>Ingresar a la sala</div>
+		<div>ID: <input type="number" [(ngModel)]="roomId"></div>
+		<button (click)="join()">Ingresar</button>
+	</div>
+</div>
+
+<div *ngIf="!iniciado && ingresar">
+	Espera a que inicie el quiz...
+</div>
+
+<div *ngIf="admin">
+	<h3>Admin de la sala {{ roomId }}</h3>
+	<div>En la sala: {{ joinedUsers }}</div>
+	<div *ngIf="startQuizGame">
+		<h3>Pregunta {{ currentQuestionIndex + 1 }}</h3>
+		<div *ngIf="this.currentQuestion">
+		<h3>{{ currentQuestion.question }}</h3>
+		<ul>
+				<li *ngFor="let option of currentQuestion.options; let i = index">
+				</li>
+		</ul>
+		</div>
+		<h3>Tiempo restante: {{ timeLeft }} </h3>
+	</div>
+	<button (click)="startQuiz()">Empezar quiz</button>
+	<button (click)="startMemorama()">Empezar memorama</button>
+</div>

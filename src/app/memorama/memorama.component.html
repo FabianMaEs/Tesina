@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Memorama</title>
+</head>
+
+<body>
+  <div class="sala">Sala: {{ roomId }}</div>
+  <div class="tiempo">Tiempo: {{ tiempo }} </div>
+  <div class="intentos">Movimientos:  {{ movimientos }} </div>
+  <div id="tablero">
+    <div *ngFor="let tarjeta of tarjetas; let i = index" class="area-tarjeta" (click)="seleccionarTarjeta(i)">
+      <div class="tarjeta" [ngClass]="{'flipped': tarjeta.flipped || tarjeta.isMatched}">
+        <div class="cara trasera">
+          <img *ngIf="tarjeta.imgSrc" [src]="tarjeta.imgSrc" alt="Imagen">
+          <span *ngIf="tarjeta.text">{{ tarjeta.text }}</span>
+        </div>
+        <div class="cara superior">
+          <i class="far fa-question-circle"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</body>
